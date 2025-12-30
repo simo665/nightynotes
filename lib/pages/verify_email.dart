@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nightynotes/design/colors.dart';
 
 class EmailVerification extends StatefulWidget {
   const EmailVerification({super.key});
@@ -11,8 +12,13 @@ class EmailVerification extends StatefulWidget {
 class _EmailVerificationState extends State<EmailVerification> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Email Verification"),
+        backgroundColor: titleColor,
+        centerTitle: true,
+      ),
+        body: Column(mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text("Email not verified"),
           Center(
@@ -34,6 +40,7 @@ class _EmailVerificationState extends State<EmailVerification> {
             ),
           )
         ],
-      );
+      )
+    );
   }
 }

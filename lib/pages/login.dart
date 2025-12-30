@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:nightynotes/firebase_options.dart';
 import 'package:nightynotes/design/colors.dart';
+import 'package:nightynotes/pages/verify_email.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -23,14 +24,15 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void login() async {
+  Future login() async {
     final email = _email.text;
     final password = _password.text;
     try {
 				final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+        print(credential);
         if (credential.user != null) {
           if (credential.user!.emailVerified == false) {
-            await credential.user!.sendEmailVerification();
+            Navigator.of(context).pushNamedAndRemoveUntil("/verify-email/", (_) => false);
           } else {
             // ignore: use_build_context_synchronously
             Navigator.of(context).pushNamedAndRemoveUntil("/home/", (_) => false);
@@ -63,6 +65,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: const Text('Login'),
         backgroundColor: titleColor,
+        centerTitle: true,
       ),
       body: Column(
         children: [
